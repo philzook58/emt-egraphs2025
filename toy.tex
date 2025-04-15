@@ -21,7 +21,7 @@
       is more computationally expensive than bespoke routines. There exist specialized efficient
        algorithms and data structures for terms containing sets, multisets, linear expressions, polynomials, and binders.
         A natural question arises: How can one combine the generic capabilities of e-graph rewriting with these specialized theories?
-        This talk discusses a pragmatic approach to e-graphs modulo theories (EMT) using two key ideas: bottom up e-matching and semantic e-ids.
+        This talk discusses a pragmatic approach to this e-graphs modulo theories (EMT) question using two key ideas: bottom up e-matching and semantic e-ids.
 
 % One feels there must be bespoke reoutines that would be better suited for common problems.
 % Some theories feel nearly structural.
@@ -63,16 +63,16 @@
 % ground terms are easier to deal with than terms with variables in them. Patterning matching is solving an equation bwetween a varterm and a term.
 % The main reason to prefer pattern matching is that it is more tractable in many cases and conceptually simpler.
 
-\subsection{Terms Modulo Theories}
+\section{Terms Modulo Theories}
 
 It is instructive to dial back from the complexity of e-graphs to see how one can make sense of the "baking in" of theories for ordinary tree-like terms.
 
-The most basic form of a term is a function symbol and an order list of children
+The most basic form of a term is a function symbol and an ordered list of children
 \begin{lstlisting}[language=Caml]
 type term = Fn of string * term list
 \end{lstlisting}
 
-We can extend this to a more general form of term
+We can extend this to a more general form of term with specialized containers of children
 
 % cut this? It's out of place now
 \begin{lstlisting}[language=Caml]
@@ -103,13 +103,15 @@ type term =
 % \item equality modulo a rewriting theory
 % \end{itemize}
 
-The specialized data structures like set and multiset can be implemented using regular lists. Canonical list representatives can be found by using sorting and deduplication. A more performant thing to do can be to use Patricia tries, which are also structurally canonical but support faster set and map operations.
+The specialized data structures like set and multiset can be implemented using regular lists. Structurally canonical list representatives can be found by using sorting and deduplication \cite{hashingmodtheories}. A more performant thing to do can be to use Patricia tries, which are also structurally canonical but support faster set and map operations.
 
-One can also use smart constructors \cite{smartconstructor} to apply built in rewrite rules immediately upon construction. They check all rules which have the smart constructor symbol at the head of the pattern. If the rewrite rules are convergent, one can maintain the invariant the terms are only stored in canonical form. This can be mixed and matched with the previous approach, as the container structures can be encoded into the terms.
+One can also use smart constructors \cite{smartconstructor} to apply built in rewrite rules immediately upon construction. They check all rules which have the smart constructor symbol at the head of the pattern. If the rewrite rules are convergent, one can maintain the invariant the terms are only created in canonical form. %This can be mixed and matched with the previous approach, as the container structures can be encoded into the terms.
 
-If the terms are stored in a structurally canonical way, one can use regular hash consing \cite{hashconsing} to intern them. This then support fast equality checks modulo the theories. 
+If the terms are stored in a structurally canonical way, one can use regular hash consing \cite{hashconsing} to intern them. This supports fast equality checks modulo the theories.
 
-This shows that equality checking and interning term modulo theories is not hard, but what about pattern matching?
+This shows that equality checking and interning terms modulo sufficiently nice theories is not hard, but what about pattern matching?
+
+%\cite{maziarz2021hashingmoduloalphaequivalence}
 
 %\subsection{Hash Consing Modulo Theories}
 
@@ -146,8 +148,8 @@ This shows that equality checking and interning term modulo theories is not hard
 
 
 
-\cite{maziarz2021hashingmoduloalphaequivalence}
-\cite{hashingmodtheories}
+
+
 
 
 % put bottom up matching here?
@@ -156,17 +158,17 @@ This shows that equality checking and interning term modulo theories is not hard
 
 \subsection{What patterns are possible?}
 
-Unification and pattern matching are a logical and syntactic slant on the notion of equation solving \ref{traatbook} \ref{BAADER2001445}. The problems are formulated as goal equations to be solved, and the solutions are substitutions, mappings from variables to terms. The operate as backwards reasoning method that breaks down goal equation sets until it is refined into a substitution.
+Unification and pattern matching are a logical and syntactic slant on the notion of equation solving \cite{traatbook} \cite{BAADER2001445}. The problems are formulated as goal equations containing variables $X, Y,...$ to be solved, and the solutions are substitutions, which are mappings from variables to terms. They operate as backwards reasoning method that breaks down goal equation sets until it is refined into a substitution.
 % Pattern matching is a subclass of unification where one side of the equation has nothing to solve for. 
 
-E-matching in the e-graphs community may have a connotation of matching a pattern against an e-graph, but in the term rewriting community it has the connotation of solving a pattern matching problem modulo an equational theory E. The e-graph version of e-matching is related to e-matching a term modulo the theory of ground equations that the e-graph represents.
+E-matching in the e-graphs community may have a connotation of matching a pattern against an e-graph, but in the term rewriting community it has the connotation of solving a pattern matching problem modulo an equational theory E consisting of a set of universally quantified equality axioms. These are the same notion. The e-graph version of e-matching is related to e-matching a term modulo the theory of ground equations that the e-graph represents.
 
 % Gauss elimination has isloate and eliminate vs add tgoether equations.
 
 Equational theories fall into different classes of how many solutions they may allow for their E-unification or E-matching problems.
 Some theories will only have a finite set of solutions, some a countably infinite set, and others an uncountably infinite set.
 
-First order syntactic unification is for equation solving for a very rigid, basically structural theory of terms. It is unusual in the spectrum of pattern matchers in that it either succeeds once or fails. For example, the goal $cons(X,Y) =^? cons(zero,nil) $ is solved by the substitution $\{X \mapsto zero, Y \mapsto nil\}$ and the goal $cons(X,X) =^? cons(zero,nil)$ has no solution.
+First order syntactic unification is equation solving for a very rigid, simple structural theory of ordered terms. It is unusual in the spectrum of pattern matchers in that it either succeeds once or fails. For example, the goal $cons(X,Y) =^? cons(zero,nil) $ is solved by the substitution $\{X \mapsto zero, Y \mapsto nil\}$ and the goal $cons(X,X) =^? cons(zero,nil)$ has no solution.
 
 %  \lstinline{val pmatch : pat -> term -> subst option}.
 
@@ -185,7 +187,7 @@ For other theories, an enumerably infinite number of solutions is possible. $X +
 
 % \item $x \times y =^? $
 
-Finally, even this may not be possible for some theories. Consider solving $X + Y =^? \pi$ over the $\mathbb{R}$. The only remaining possibility is to instead return a constraint, which more of less just returns the pattern.
+Finally, even this may not be possible for some theories. Consider solving $X + Y =^? \pi$ over the $\mathbb{R}$. The only remaining possibility is to instead return a constraint, which more or less just returns the pattern.
 
 In short, e-matching modulo theories on terms runs the spectrum from expensive to hopeless.
 
@@ -226,15 +228,43 @@ In short, e-matching modulo theories on terms runs the spectrum from expensive t
 
 One way to win is to refuse the play the game.
 
-The statement of the pattern matching problem gave a set of equations to be solved or a pattern to be matched against a particular term.
+In the statement of the pattern matching problem, one is given a set of equations $\{p_1 =^? t_t, p_2 =^? t_2, ...\}$ to be solved or a pattern to be matched against a particular term.
 
-However, in equality saturation one is matching against an entire term bank in the form of the e-graph. This problem can be reduced to the previous problem by a scan of all terms, but this is not necessarily the only method. 
+A different formulation of the pattern matching problem that solves the issues of top down matching is the bottom up matching procedure. Instead of being given a term and a pattern to match it to, one is instead given a term bank $T$ which scanned to attempt to fill the pattern variables to find a match inside the same termbank $T$. \cite{bottomup} This is a brutally simple method.
+
+It is important to note that while an e-graph can be seen as a compressed representation of a set of ground equations $E$, really it is more like the pair of a set of equations and a termbank $(E, T)$. For example, we may consider the set of equations  $\{foo(a) = b, c = c\}$ to be the same as the set $\{foo(a) = b\}$ since the equation $c = c$ has no interesting content. Nevertheless, if we assert these two sets into the e-graph, we get different e-graphs, one which has the an e-class and e-node for $c$ in its termbank $T$ and one which does not.
+
+This python code shows a shallow embedding of bottom up e-matching. It simple scans choices of variables in the form of for loops. Compared to a virtual machine implementation like in top-down e-matching, this is so simple it does not need a library. It can be an idiom.
+
+\begin{lstlisting}[language=Python]
+  # A shallow bottom up embedding of the rewrite
+  # foo(bar(X), Y) -> biz(X)
+  for X in eclasses:
+      for Y in eclasses:
+          try:
+              # possibly failing lookup in hashcons
+              lhs = foo[bar[X], Y]  
+              # construct rhs
+              rhs = biz(X)          
+              # set equal
+              egraph.union(lhs,rhs) 
+          except e:
+              pass
+  \end{lstlisting}
+
+%However, in equality saturation one is matching against an entire term bank in the form of the e-graph. This problem can be reduced to the previous problem by a scan of all terms, but this is not necessarily the only method. 
 
 %Vectorized
 
-A different formulation of the pattern matching problem that solves the issues of top down matching is the bottom up matching procedure. Instead of being given a term and a pattern to match it to, one is instead given a term bank $T$ with which to attempt to fill the pattern variables to find a match. \cite{bottomup}
+%Given a termbank T and a pattern p, find substitutions $\{v \mapsto t | t \in T\}$ such that  
 
-For different patterns and termbanks, one method or the other may be more performant.
+For rough performance comparison of the algorithms, consider an e-graph with $E$ e-classes and $N$ e-nodes. On average, each e-class has $N/E$ e-nodes.
+
+Top-down e-matching pays a factor $E$ for a scan of all e-classes to start to pick a root e-class to pattern match over. Every time top-down e-matching expands an e-class into it's e-nodes, it adds a multiplicative factor due to this searching. Because of this, top-down e-matching is exponential in cost in terms of depth of the pattern $d$. The cost of top down e-matching is something like $O(E(\frac{N}{E})^d)$.
+
+Bottom-up e-matching pays for a scan for the number of variables $V$ in the pattern. The constructing the instantiated pattern is just a lookup and pays the cost of a hash table or indexing tree, which is typically something like $O(\ln(N))$. The cost is therefore something more akin to $O(E^V d \ln(N) )$.
+
+For different patterns or termbanks, top-down or bottom-up may be more performant.
 
 % consider maybe using this pattern on a given egraph. foo( foo( foo( X )))
 A bad pattern for top down e-matching would be a deep one with few variables. For example, 
@@ -245,17 +275,9 @@ A bad pattern for bottom up e-matching would be a shallow one with many variable
 
 $$foo(bar(X), bar(Y), bar(Z), bar(W), bar(V))$$
 
-%Given a termbank T and a pattern p, find substitutions $\{v \mapsto t | t \in T\}$ such that  
-
-As a rough model of the situation, consider an e-graph with $E$ e-classes and $N$ e-nodes. On average, each e-class has $N/E$ e-nodes.
-
-Top-down e-matching pays a factor $E$ for a scan of all e-classes to start to pick a root e-class to pattern match over. Every time top-down e-matching expands an e-class into it's e-nodes, it adds a multiplicative factor due to this searching. Because of this, top-down e-matching is exponential in cost in terms of depth of the pattern $d$. The cost of top down e-matching is something like $O(E(\frac{N}{E})^d)$.
-
-Bottom-up e-matching pays for a scan for the number of variables $V$ in the pattern. The constructing the instantiated pattern is just a lookup and pays the cost of a hash table or indexing tree, which is typically something like $O(\ln(N))$. The cost is therefore something more akin to $O(E^V d \ln(N) )$.
-
 A reason that top down matching may feel natural is that makes sense for pattern matching against a pointer chasing implementation of single term. This is the typical situation in many programming language like contexts.
 
-Another reason bottom up e-matching may not feel natural is that the most commonly considered termbank is one consisting of of ground syntactic terms with no theories. In this case $\frac{N}{E} = 1$ and the exponential character of top down matching is gone. It is a dominant method. People do not necessarily use simple syntactic terms because they do not want baked in theories. They do it because baking in theories is complex and expensive. Bottom-up e-matching ameliorates these issues.
+Another reason bottom up e-matching may not feel natural is that the most commonly considered termbank is one consisting of of ground syntactic terms with no theories. In this case $\frac{N}{E} = 1$ and the exponential character of top down matching is gone. It is a dominant method. I believe that people do not necessarily use simple syntactic terms because they do not want baked in theories. They do it because baking in theories is complex and expensive. Bottom-up e-matching ameliorates these issues.
 
 Bottom up e-matching can be seen as a particular query plan for relational e-matching using a generic join \cite{wang2023freejoinunifyingworstcase}. Likewise Top down e-matching can be seen as the same. 
 
@@ -270,22 +292,6 @@ Top-down e-matching requires the extra ability to expand from e-classes to e-nod
 
 Bottom up e-matching can emulate the results of top-down e-matching. If it is possible to enumerate the subterms of your target term, you can fill a term bank with these subterms. Bottom up e-matching will then find a superset of the same matches top-down will. In the presence of some theories enumerating subterms is not possible or meaningful and top-down e-matching will not work at all. You can still bottom up match over a term databank. In this sense, bottom up e-matching is more powerful than top-down e-matching.
 
-
-\begin{lstlisting}[language=Python]
-# A shallow bottom up embedding of the rewrite
-# foo(bar(X), Y) -> biz(X)
-for X in eclasses:
-    for Y in eclasses:
-        try:
-            # possibly failing lookup in hashcons
-            lhs = foo[bar[X], Y]  
-            # construct rhs
-            rhs = biz(X)          
-            # set equal
-            egraph.union(lhs,rhs) 
-        except e:
-            pass
-\end{lstlisting}
 
 
 % \begin{lstlisting}[language=python]
@@ -303,7 +309,7 @@ for X in eclasses:
 %         pass
 % \end{lstlisting}
 
-The maximally naive bottom up e-matching that scans over all e-classes can be improved by filtering on the intersection of all the tables where the variable occurs and by pushing intermediate constructions upwards in the loop ordering.
+The maximally naive bottom up e-matching that scans over all e-classes can be improved by filtering on the intersection of all the tables where the variable occurs and by pushing intermediate constructions upwards in the loop ordering. 
 
 \begin{lstlisting}[language=python]
 for X in set(bar.keys()).intersection(biz.keys()):
@@ -317,17 +323,16 @@ for X in set(bar.keys()).intersection(biz.keys()):
 \end{lstlisting}
 
 % the distinction between encapsulate and non-enscpuslated thoery expressions.
-
-
+One can also filter by modelling using multisorted logic. One only needs to scan over the e-ids corresponding to the sort of te variable. This can be achieved by having separate union finds per sort. Which brings us into our next topic.
 
 \section {Generalized Union Finds and Semantic E-ids}
-E-graphs systems are the interplay of two entities, e-nodes and e-classes. A natural approach to generalize e-graphs is to consider generalizing one or both.
+%E-graphs systems are the interplay of two entities, e-nodes and e-classes. A natural approach to generalize e-graphs is to consider generalizing one or both.
 
-After bottom up e-matching, the second key ingredient for e-graphs modulo theories is to generalize the e-id and the union find. These become structured e-ids / semantic e-ids / values. The union find becomes a theory specific canonizer that supports equality assertions.
+After bottom up e-matching, the second key ingredient for e-graphs modulo theories is to generalize the e-id and the union find. E-ids are generalized to structured e-ids / semantic e-ids / notions of values. The union find becomes a theory specific canonizer that supports equality assertions.
 
-A first way to see this might make sense is to note that a simple e-graph can be seen as a uninterpreted minimal model $\mathcal{M}$ of partial functions. The collection of e-ids $\mathcal[V]$ corresponds to the set of values in the model and the e-node tables correspond to the data of the model of the partial functions $\lBrack f \rBrack$. One can ask for interpretation onto other domains other than an uninterpreted one where the values have no structure except equality. One can consider semantic domains like polynomials, linear expressions, terms, constructors, sets, multisets and so on. These corresponds to structured e-ids. Mutiple kinds of strucutured e-ids can be most simply supported by using multi-sorted logic. Expressions of different sorts are restricted by being equated by a static type check and the role of mediating between these sorts is perfomed by the e-nodes and congruence closure over e-nodes.
+A first way to see this might make sense is to note that a simple e-graph can be seen as a uninterpreted partial-function minimal model $\mathcal{M}$ of the equations and term existence assertions that produced it. The collection of e-ids $\mathcal[V]$ corresponds to the set of values in the model and the e-node tables correspond to the data of the model of the partial functions $\lBrack f \rBrack$. One can ask for interpretation onto domains other than an uninterpreted one where the values have no structure except equality. One can consider semantic or structured domains like polynomials, linear expressions, terms, constructors, sets, multisets and so on. These corresponds to structured e-ids. Multiple kinds of structured e-ids can be most simply supported by using multi-sorted logic. Expressions of different sorts are restricted by being equated by a static type check and the role of mediating between these sorts is performed by the e-nodes and congruence closure through e-nodes.
 
-Another point is to note that even in hash consing for terms modulo theories, there is utility in having both interned and non interned forms of terms. A smart constructor should not bother interning the intermediate expressions until they have been canonized. The e-nodes are the interned forms and the structured e-ids are the non-interned forms. The structured e-ids are in a sense kept in extracted non-interned term-like form for easy deep inspection and theory specific destructive manipulation.
+Another point is to note that even in hash consing for terms modulo theories, there is utility in having both interned and non interned forms of terms. A smart constructor should not bother interning the intermediate expressions until they have been canonized. The e-nodes are the interned forms and the structured e-ids are the non-interned forms. The structured e-ids are in a sense kept in extracted non-interned term-like form for easy deep inspection and theory specific destructive manipulation. While fully interning makes for the simplest fastest equality checks, this is a knob that can be turned between complete structural traversal and a simple id comparison. 
 
 % maybe a nice little picture would be nice here
 % in smt and egraph and sat solver mediate all the theories.
@@ -372,14 +377,14 @@ Another point is to note that even in hash consing for terms modulo theories, th
 % add_term : t -> eid -> unit  % only makes sense if eid was constructed using
 % remove_term : t -> eid -> unit % can remove terms from termbank. Makes them unavaiable for ematching, but does not remove their equations
 
-Another way to see that this makes sense is to ask "what interface does the union find present?". The internals of the union find and the structure of the e-ids is irrelevant to how they are used in the e-graph. At minimum they give an interface
+Another way to see that this makes sense is to ask "what interface does the union find present?". The internals of the union find and the integer representation of the e-ids are irrelevant to how they are used in the e-graph. Really one only needs the abstract interface
 
 % module type UnionFind
 \begin{lstlisting}[language=Caml]
 type t
 type eid
 val create : unit -> t
-val eq     : eid -> eid -> bool
+val eq     : t -> eid -> eid -> bool
 val fresh  : t -> eid (* makeset *)
 val canon  : t -> eid -> eid (* find *)
 val assert_eq : t -> eid -> eid -> unit (* union *)
@@ -389,7 +394,7 @@ This API is largely the same as that required by the theory of an SMT solver min
 
 \subsection{Union Finds solve Ground Atomic Equations}
 
-The union find can be seen as a normal form or canonizer of a system of atomic equations. The knuth bendix completion of a ground atomic equational theory is guaranteed to terminate and the resulting rewrite system can be interpreted as a union find \cite{groundegraph2024}. 
+The union find can be seen as a normal form or canonizer of a system of atomic equations. The Knuth Bendix completion of a ground atomic equational theory is guaranteed to terminate and the resulting rewrite system can be interpreted as a union find \cite{groundegraph2024}. 
 
 Consider for example the atomic ground equation system 
 
@@ -429,7 +434,7 @@ However, atomic ground theories are not the only ones that are guaranteed to be 
 
 \begin{itemize}
 
-\item $\mathcal{V} = \mathrm{span}_\mathbb{Q} \{ e_1, e_2, e_3, ... \} \Big/ V_E$ Linear equations can be put into row echelon form. The row echelon form can be used to canonically quotient a vector space by a subspace. a set of linear equations can be put into the matrix form $Ax=0$. Each equation of the above example system can be encoded as a row of a matrix. 
+\item  Linear equations can be put into row echelon form. The row echelon form can be used to canonically quotient a vector space by a subspace. a set of linear equations can be put into the matrix form $Ax=0$. Each equation of the above example system can be encoded as a row of a matrix. 
 
 \[
 \begin{bmatrix}
@@ -483,8 +488,10 @@ The row echelon form corresponds to a ground rewrite system. It can be used star
 % ⎢               ⎥
 % ⎣0  0  0   0  0 ⎦
 
+The semantic domain is a vector space of uninterpreted e-ids quotiented by the subspace spanned by the asserted linear equations. $\mathcal{V} = \mathrm{span}_\mathbb{Q} \{ e_1, e_2, e_3, ... \} \Big/ V_E$ 
 
-\item $\mathcal{V} = \mathbb{Q}[e_1,e_2,..] \Big/ I_E$ Gr\"{o}bner bases are the generalization of row echelon form the multivariate polynomial equation systems. This is particularly useful because much of trigonometry and Euclidean geometry can be put into a form that is essentially polynomials for example $\sin(x)**2 + \cos(x)**2 = 1$.  
+
+\item Gr\"{o}bner bases are the generalization of row echelon form the multivariate polynomial equation systems. This is particularly useful because much of trigonometry and Euclidean geometry can be put into a form that is essentially polynomials for example $\sin(x)**2 + \cos(x)**2 = 1$.   The semantic values are the quotient ring of polynomials modulo the ideal generated by the polynomial equations. $\mathcal{V} = \mathbb{Q}[e_1,e_2,..] \Big/ I_E$
 %The cross, geometric, and dot product of vectors are all algebraic constructions. Parallelism, circles, spheres. It is the connection between Radian angles and lengths which requires transcendental functions or solving differential equations or integrals. %Wildberger
 
 \item Ground multiset equations are completeable $ \{\} a,b,b \}\} = \{c,d\}$. The structured e-ids are multisets. This gives each sort one special associative and commutative operation. \cite{acegraph} This can be seen as a special case of Gro\"{o}bner basis calculation as each monomial $x^n y^m z^k$ can be seen as a multiset of it's variables with the multiplicity given by the exponent. Indeed, the termination of Buchberger's algorithm is guaranteed by multiset orderings on the produced polynomials. It can also be seen as integer lattice rewriting via Hilbert or Graver bases and has connections to the theory of integer programming \cite{sturmfels1996grobner}
@@ -495,16 +502,16 @@ The row echelon form corresponds to a ground rewrite system. It can be used star
 % Another way of looking at it is atomic ground completion modulo a group action.
 % Kmett, CHR book, Recent Lamerre paper, \item Slotted e-graphs, nominal logic
 
-\item Atomic completion modulo constructors and primitives. This is a subcase of ground completion where only atomic entities are unioned and with built in injectivity rules for constructors. The semantic domain is $ \mathcal{V} = \{ e_i \}  \uplus \mathcal{P}$ . E-class ids may either be uninterpreted or grounded to a concrete entity. Tie breaking of the union operation on the union find has to be adjusted such that the ground entity is always the root. Unioning two compatible constructors can be resolved by syntactic unification. Unioning two incompatible constructors is considered an error. Constructors and injectivity can be encoded into the e-graph and rules, but this is a form of baking them in. Having the constructor term reified makes occurs checks and bisimilarity compaction for coalgebraic datatypes easier to perform by ordinary term routines. This is related to the ideas of Co-egraphs \cite{coegraph} which add a cofunction/observation table in addition to the enode function table. The identification of e-ids with values suggests a method to support lambda terms by using Closure values as structured e-ids in an intriguing connection with the ethos of Normalization by Evaluation. In NbE, the semantic domain is extended by syntactic forms representing stuck terms.
+\item Atomic completion modulo constructors and primitives. This is a subcase of ground completion where only atomic entities are unioned and with built in injectivity rules for constructors. The semantic domain is $ \mathcal{V} = \{ e_i \}  \uplus \mathcal{P}$ . E-class ids may either be uninterpreted or grounded to a concrete entity. Tie breaking of the union operation on the union find has to be adjusted such that the ground entity is always the root. Unioning two compatible constructors can be resolved by syntactic unification. Unioning two incompatible constructors is considered an error because you are asserting an inconsistent impossibility. Constructors and injectivity can be encoded into the e-graph and rules, but this is a form of baking them in. Having the constructor term reified makes occurs checks and bisimilarity compaction for coalgebraic datatypes easier to perform by ordinary term routines. This is related to the ideas of Co-egraphs \cite{coegraph} which add a cofunction/observation table in addition to the enode function table. The identification of e-ids with values suggests a method to support lambda terms by using Closure values as structured e-ids in an intriguing connection with the ethos of Normalization by Evaluation. In NbE, the semantic domain is extended by syntactic forms representing stuck terms. This can be seen as a method to merge the notion of e-ids and primitives.
 % Fixed rewrite rules. If the signature of the "constructors" is disjoint from the other function symbols, one can also have the constructors
 % rewrite themselves using smart constructors. To combine them, it sems in general one has to go to full knuth bendix ocmpletion
 
 % Lambda terms are a kind of value
 
-\item A Boolean theory of ground clauses $ \lnot a \lor b \lor c$ or ground Horn clauses $b \land c \implies a$ can be canonized by ordered resolution. This can also be extended to ground superposition clauses $ \lnot(x = y) \lor z = x \lor c = true$. This may give a method to encoding contextual equality.  %a la colored \cite{singher2023colored}
+\item A Boolean theory of ground clauses $ \lnot a \lor b \lor c$ or ground Horn clauses $b \land c \implies a$ can be canonized by ordered resolution. This can also be extended to ground superposition clauses $ \lnot(x = y) \lor z = x \lor c = true$. This may give a method to encoding contextual equality. One can also similarly consider using a theory of boolean rings.  %a la colored \cite{singher2023colored}
 % the clause c :- a,b is subsmued by c :- a 
 
-\item Disjoint signature of terms with a convergent rewrite system.
+\item Disjoint signature of terms with a convergent rewrite system. One not entirely satisfying way of baking in a theory of convergent rewrite rules is if they operate over a disjoint signature from the e-nodes of the egraph. Fuller support (at cost) is to use Knuth Bendix completion as suggested below.
 
 \end{itemize}
 
@@ -519,9 +526,6 @@ It is possible to use theory solvers that may not terminate. One may either hope
  The term ordering used to orient and complete the original system can also be determined ahead of time. Strongly term decreasing simplification rules may prefer suing Knuth Bendix orderings which orient roughly speaking by term size. Knuth Bendix completion is such a powerful method that it isn't clear there is an advantage to having the outer e-graph layer.
 % Likewise Knuth bendix completion 
 
-
-
-
 \end{itemize}
 
 
@@ -531,6 +535,7 @@ An e-graph rewriting system may want to mix and match these possibilities. The m
 
 \section{Alternative Approaches}
 
+The above approach is not the only one that might reaosnably go under the moniker e-graphs modulo theories.
 
 \subsection{Extract, Simplify, and Insert}
 
@@ -561,12 +566,12 @@ SMT solvers supply a black box for checking equality of two terms modulo the ass
 
 \ref{extz3graph} 
 
-\begin{lstlisting}[language=Lisp]
-(push)
-(assert (not guard))
-(check-sat)
-(pop)
-\end{lstlisting}
+% \begin{lstlisting}[language=Lisp]
+% (push)
+% (assert (not guard))
+% (check-sat)
+% (pop)
+% \end{lstlisting}
 
 This technique has analogs in the form of Constraint Logic Programming \cite{JAFFAR1994503} or Constrained Horn Clauses, or constrained rewriting  \cite{constrainedrewrite}.
 
@@ -581,12 +586,13 @@ Similar to the datatype for terms modulo theories, it is natural to consider an 
 
 \section{Just Use Terms Modulo Theories}
 
-% Brute Force Search
+Terms are much simpler than e-graphs. While greedy destructive rewriting may miss oppurtunities, one can instead not destroy old terms but keep them around in a term bank for future ocnsideration. This is effectively the same as e-graph techniques without the compaction and sharing (which was the cause of much trouble anyhow). %Brute force equational search is not entirely unreasonable method
 
-% Ordered Rewriting can also handle difficult to orient equations in a different way. Ordered rewriting maintains equations like AC and only uses them at rewrite time if they reduce the term according to a term ordering. This guarantees termination and can be used for example as a framework to sort the children of a commutative node. E-graph rewriting techniques should have a superset of the proving or optimization power of ordered rewriting.
+Ordered Rewriting can also handle difficult to orient equations in a different way. Ordered rewriting maintains equations like AC and only uses them at rewrite time if they reduce the term according to a term ordering. This guarantees termination and can be used for example as a framework to sort the children of a commutative node. E-graph rewriting techniques should have a superset of the proving or optimization power of ordered rewriting.
 
-% Stochastic equational search is another method with a lot to reccommend it. The direction of application of equational rules can be used probablistically, perhaps. Some rewrite rules are irreversible, dropping a pattern matched subterm. With the addition of a conservative term bank, even these irreversible rewrite rules can in principle be reversed. For better and worse the stochastic nature has a lot of heuristic tuning parameters.
+Stochastic equational search is another method with a lot to reccommend it. The direction of application of equational rules can be picked probablistically. Some rewrite rules are irreversible, dropping a pattern matched subterm. With the addition of a conservative term bank, even these irreversible rewrite rules can in principle be reversed. If one is going to use a stochastic profile guide extraction method anyway, there is not a super strong reason to maintain an entire e-graph to get a global extraction.
 
+%For better and worse the stochastic nature has a lot of heuristic tuning parameters.
 
 \section{Related Work}
 
