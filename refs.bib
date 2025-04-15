@@ -1,0 +1,631 @@
+@inproceedings{hornformula,
+  author    = {Claessen, Koen
+               and Smallbone, Nicholas},
+  editor    = {Galmiche, Didier
+               and Schulz, Stephan
+               and Sebastiani, Roberto},
+  title     = {Efficient Encodings of First-Order Horn Formulas in Equational Logic},
+  booktitle = {Automated Reasoning},
+  year      = {2018},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {388--404},
+  abstract  = {We present several translations from first-order Horn formulas to equational logic. The goal of these translations is to allow equational theorem provers to efficiently reason about non-equational problems. Using these translations we were able to solve 37 problems of rating 1.0 (i.e. which had not previously been automatically solved) from the TPTP.},
+  isbn      = {978-3-319-94205-6}
+}
+@article{eggpaper,
+  author     = {Willsey, Max and Nandi, Chandrakana and Wang, Yisu Remy and Flatt, Oliver and Tatlock, Zachary and Panchekha, Pavel},
+  title      = {egg: Fast and extensible equality saturation},
+  year       = {2021},
+  issue_date = {January 2021},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {5},
+  number     = {POPL},
+  url        = {https://doi.org/10.1145/3434304},
+  doi        = {10.1145/3434304},
+  abstract   = {An e-graph efficiently represents a congruence relation over many expressions. Although they were originally developed in the late 1970s for use in automated theorem provers, a more recent technique known as equality saturation repurposes e-graphs to implement state-of-the-art, rewrite-driven compiler optimizations and program synthesizers. However, e-graphs remain unspecialized for this newer use case. Equality saturation workloads exhibit distinct characteristics and often require ad-hoc e-graph extensions to incorporate transformations beyond purely syntactic rewrites.  This work contributes two techniques that make e-graphs fast and extensible, specializing them to equality saturation. A new amortized invariant restoration technique called rebuilding takes advantage of equality saturation's distinct workload, providing asymptotic speedups over current techniques in practice. A general mechanism called e-class analyses integrates domain-specific analyses into the e-graph, reducing the need for ad hoc manipulation.  We implemented these techniques in a new open-source library called egg. Our case studies on three previously published applications of equality saturation highlight how egg's performance and flexibility enable state-of-the-art results across diverse domains.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = {jan},
+  articleno  = {23},
+  numpages   = {29},
+  keywords   = {e-graphs, equality saturation}
+}
+@misc{singher2023colored,
+  title         = {Colored E-Graph: Equality Reasoning with Conditions},
+  author        = {Eytan Singher and Shachar Itzhaky},
+  year          = {2023},
+  eprint        = {2305.19203},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.PL}
+} 
+@inproceedings{treeautomata,
+  author    = {Yihong Zhang and Oliver Flatt},
+  title     = {Ensuring the termination of equality saturation for terminating term rewriting systems},
+  booktitle = {E-Graph Research, Applications, Practices, and Human-factors Symposium},
+  year      = {2023},
+  series    = {EGRAPHS 2023},
+  url       = {https://pldi23.sigplan.org/details/egraphs-2023-papers/9/Ensuring-the-termination-of-equality-saturation-for-terminating-term-rewriting-system},
+  publisher = {ACM},
+  address   = {New York, NY, USA}
+}
+@article{braniac,
+  author     = {Schulz, Stephan},
+  title      = {E - a brainiac theorem prover},
+  year       = {2002},
+  issue_date = {August 2002},
+  publisher  = {IOS Press},
+  address    = {NLD},
+  volume     = {15},
+  number     = {2,3},
+  issn       = {0921-7126},
+  abstract   = {We describe the superposition-based theorem prover E. E is a sound and complete prover for clausal first order logic with equality. Important properties of the prover include strong redundancy elimination criteria, the DISCOUNT loop proof procedure, a very flexible interface for specifying search control heuristics, and an efficient inference engine. We also discuss strength and weaknesses of the system.},
+  journal    = {AI Commun.},
+  month      = {aug},
+  pages      = {111–126},
+  numpages   = {16},
+  keywords   = {E, Theorem proving, rewriting, search control, superposition}
+}
+
+@article{bentkampsuperposition,
+  author  = {Alexander Bentkamp, Jasmin Blanchette, Sophie Tourret, Petar Vukmirović and Uwe Waldmann },
+  title   = {Superposition with Lambdas},
+  journal = {Journal of Automated Reasoning},
+  volume  = {65},
+  number  = {5},
+  pages   = {893--940},
+  year    = {2021},
+  doi     = {10.1007/s10817-021-09595-y},
+  url     = {https://link.springer.com/article/10.1007/s10817-021-09595-y},
+  note    = {Received: 15 April 2020, Accepted: 24 January 2021, Published: 21 August 2021, Issue Date: October 2021}
+}
+
+@misc{coward2023automating,
+  title         = {Automating Constraint-Aware Datapath Optimization using E-Graphs},
+  author        = {Samuel Coward and George A. Constantinides and Theo Drane},
+  year          = {2023},
+  eprint        = {2303.01839},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.AR}
+}
+@article{hints,
+  title     = {Using hints to increase the effectiveness of an automated reasoning program: Case studies},
+  author    = {Veroff, Robert},
+  journal   = {Journal of Automated Reasoning},
+  volume    = {16},
+  number    = {3},
+  pages     = {223--239},
+  year      = {1996},
+  publisher = {Springer},
+  doi       = {10.1007/BF00252178},
+  issn      = {1573-0670}
+}
+@book{wosautomated,
+  title     = {Automated Reasoning: Introduction and Applications},
+  author    = {Larry Wos, Ross Overbeek, Rusty Lusk, and Jim Boyle},
+  isbn      = {9780079112514},
+  lccn      = {lc91043171},
+  url       = {https://books.google.com/books?id=H0g_AQAAIAAJ},
+  year      = {1992},
+  publisher = {McGraw-Hill}
+}
+@book{miller,
+  author    = {Miller, Dale and Nadathur, Gopalan},
+  title     = {Programming with Higher-Order Logic},
+  year      = {2012},
+  isbn      = {052187940X},
+  publisher = {Cambridge University Press},
+  address   = {USA},
+  edition   = {1st},
+  abstract  = {Formal systems that describe computations over syntactic structures occur frequently in computer science. Logic programming provides a natural framework for encoding and animating such systems. However, these systems often embody variable binding, a notion that must be treated carefully at a computational level. This book aims to show that a programming language based on a simply typed version of higher-order logic provides an elegant, declarative means for providing such a treatment. Three broad topics are covered in pursuit of this goal. First, a proof-theoretic framework that supports a general view of logic programming is identified. Second, an actual language called Prolog is developed by applying this view to higher-order logic. Finally, a methodology for programming with specifications is exposed by showing how several computations over formal objects such as logical formulas, functional programs, and -terms and -calculus expressions can be encoded in Prolog.}
+}
+@article{nominal,
+  title    = {Nominal unification},
+  journal  = {Theoretical Computer Science},
+  volume   = {323},
+  number   = {1},
+  pages    = {473-497},
+  year     = {2004},
+  issn     = {0304-3975},
+  doi      = {https://doi.org/10.1016/j.tcs.2004.06.016},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0304397504004013},
+  author   = {Christian Urban and Andrew M. Pitts and Murdoch J. Gabbay},
+  keywords = {Abstract syntax, Alpha-conversion, Binding operations, Unification},
+  abstract = {We present a generalisation of first-order unification to the practically important case of equations between terms involving binding operations. A substitution of terms for variables solves such an equation if it makes the equated terms α-equivalent, i.e. equal up to renaming bound names. For the applications we have in mind, we must consider the simple, textual form of substitution in which names occurring in terms may be captured within the scope of binders upon substitution. We are able to take a “nominal” approach to binding in which bound entities are explicitly named (rather than using nameless, de~Bruijn-style representations) and yet get a version of this form of substitution that respects α-equivalence and possesses good algorithmic properties. We achieve this by adapting two existing ideas. The first one is terms involving explicit substitutions of names for names, except that here we only use explicit permutations (bijective substitutions). The second one is that the unification algorithm should solve not only equational problems, but also problems about the freshness of names for terms. There is a simple generalisation of classical first-order unification problems to this setting which retains the latter's pleasant properties: unification problems involving α-equivalence and freshness are decidable; and solvable problems possess most general solutions.}
+}
+
+@article{sketch,
+  author     = {Kohler, Thomas and Goens, Andr\'{e}s and Bhat, Siddharth and Grosser, Tobias and Trinder, Phil and Steuwer, Michel},
+  title      = {Guided Equality Saturation},
+  year       = {2024},
+  issue_date = {January 2024},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {8},
+  number     = {POPL},
+  url        = {https://doi.org/10.1145/3632900},
+  doi        = {10.1145/3632900},
+  abstract   = {Rewriting is a principled term transformation technique with uses across theorem  
+                proving and compilation.  
+                In theorem proving, each rewrite is a proof step; in compilation, rewrites optimize a program term.  
+                While developing rewrite sequences manually is possible, this process does not  
+                scale to larger rewrite sequences. Automated rewriting  
+                techniques, like greedy simplification or equality saturation, work well  
+                without requiring human input.  
+                Yet, they do not scale to large search spaces, limiting the complexity of tasks where automated rewriting is effective,  
+                and meaning that just a small increase in term size or rewrite length may result in failure.  
+                
+                This paper proposes a semi-automatic rewriting technique as a means to scale rewriting by allowing  
+                human insight at key decision points.  
+                Specifically, we propose guided equality saturation that embraces human guidance when fully automated equality saturation does not scale.  
+                The rewriting is split into two simpler automatic equality saturation steps: from the original term to a human-provided intermediate guide, and from the guide to the target. Complex rewriting tasks may require multiple guides, resulting in a sequence of equality saturation steps.  
+                A guide can be a complete term, or a sketch containing undefined elements that are instantiated by the equality saturation search.  
+                Such sketches may be far more concise than complete terms.  
+                
+                We demonstrate the generality and effectiveness of guided equality saturation using two case studies.  
+                First, we integrate guided equality saturation in the Lean 4 proof assistant.  
+                Proofs are written in the style of textbook proof sketches, as a series of calculations omitting details and skipping steps.  
+                These proofs conclude in less than a second instead of minutes when compared to unguided equality saturation, and can  
+                find complex proofs that previously had to be done manually.  
+                Second, in the compiler of the Rise array language, where unguided equality saturation fails to perform optimizations within an hour and using 60 GB of memory, guided equality saturation performs the same optimizations with at most 3 guides, within seconds using less than 1 GB memory.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = {jan},
+  articleno  = {58},
+  numpages   = {32},
+  keywords   = {e-graphs, equality saturation, optimizing compilers, theorem provers}
+}
+
+
+@article{egglog,
+  author     = {Zhang, Yihong and Wang, Yisu Remy and Flatt, Oliver and Cao, David and Zucker, Philip and Rosenthal, Eli and Tatlock, Zachary and Willsey, Max},
+  title      = {Better Together: Unifying Datalog and Equality Saturation},
+  year       = {2023},
+  issue_date = {June 2023},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {7},
+  number     = {PLDI},
+  url        = {https://doi.org/10.1145/3591239},
+  doi        = {10.1145/3591239},
+  abstract   = {We present egglog, a fixpoint reasoning system that unifies Datalog and equality saturation (EqSat). Like Datalog, egglog supports efficient incremental execution, cooperating analyses, and lattice-based reasoning. Like EqSat, egglog supports term rewriting, efficient congruence closure, and extraction of optimized terms.  
+                
+                We identify two recent applications -- a unification-based pointer analysis in Datalog and an EqSat-based floating-point term rewriter -- that have been hampered by features missing from Datalog but found in EqSat or vice-versa. We evaluate our system by reimplementing those projects in egglog. The resulting systems in egglog are faster, simpler, and fix bugs found in the original systems.},
+  journal    = {Proc. ACM Program. Lang.},
+  month      = {jun},
+  articleno  = {125},
+  numpages   = {25},
+  keywords   = {Datalog, Equality saturation, Program optimization, Rewrite systems}
+}
+
+@article{veroff1996using,
+  author  = {Robert Veroff},
+  title   = {Using hints to increase the effectiveness of an automated reasoning program: Case studies},
+  journal = {Journal of Automated Reasoning},
+  volume  = {16},
+  number  = {3},
+  pages   = {223--239},
+  year    = {1996},
+  month   = {Jun},
+  doi     = {10.1007/BF00252178},
+  url     = {https://doi.org/10.1007/BF00252178},
+  note    = {Received: 06 March 1995, Issue Date: June 1996}
+}
+
+@misc{koehler2022sketchguidedequalitysaturationscaling,
+  title         = {Sketch-Guided Equality Saturation: Scaling Equality Saturation to Complex Optimizations of Functional Programs},
+  author        = {Thomas Koehler and Phil Trinder and Michel Steuwer},
+  year          = {2022},
+  eprint        = {2111.13040},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.PL},
+  url           = {https://arxiv.org/abs/2111.13040}
+}
+
+@article{ottermanual,
+  author = {William McCune},
+  title  = {OTTER 3.3 Reference Manual},
+  url    = {https://www.mcs.anl.gov/research/projects/AR/otter/otter33.pdf}
+}
+
+@incollection{NIEUWENHUIS2001371,
+  title     = {Chapter 7 - Paramodulation-Based Theorem Proving},
+  editor    = {Alan Robinson and Andrei Voronkov},
+  booktitle = {Handbook of Automated Reasoning},
+  publisher = {North-Holland},
+  address   = {Amsterdam},
+  pages     = {371-443},
+  year      = {2001},
+  series    = {Handbook of Automated Reasoning},
+  isbn      = {978-0-444-50813-3},
+  doi       = {https://doi.org/10.1016/B978-044450813-3/50009-6},
+  url       = {https://www.sciencedirect.com/science/article/pii/B9780444508133500096},
+  author    = {Robert Nieuwenhuis and Albert Rubio}
+}
+
+@misc{wang2023freejoinunifyingworstcase,
+  title         = {Free Join: Unifying Worst-Case Optimal and Traditional Joins},
+  author        = {Yisu Remy Wang and Max Willsey and Dan Suciu},
+  year          = {2023},
+  eprint        = {2301.10841},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.DB},
+  url           = {https://arxiv.org/abs/2301.10841}
+}
+
+@book{traatbook,
+  author    = {Baader, Franz and Nipkow, Tobias},
+  title     = {Term rewriting and all that},
+  year      = {1998},
+  isbn      = {0521455200},
+  publisher = {Cambridge University Press},
+  address   = {USA}
+}
+@incollection{DAVIS20013,
+  title     = {Chapter 1 - The Early History of Automated Deduction: Dedicated to the memory of Hao Wang},
+  editor    = {Alan Robinson and Andrei Voronkov},
+  booktitle = {Handbook of Automated Reasoning},
+  publisher = {North-Holland},
+  address   = {Amsterdam},
+  pages     = {3-15},
+  year      = {2001},
+  series    = {Handbook of Automated Reasoning},
+  isbn      = {978-0-444-50813-3},
+  doi       = {https://doi.org/10.1016/B978-044450813-3/50003-5},
+  url       = {https://www.sciencedirect.com/science/article/pii/B9780444508133500035},
+  author    = {Martin Davis}
+}
+
+@misc{groundegraph,
+  title   = {A Road to Lambda: E-graphs are Ground Completion},
+  url     = {https://www.philipzucker.com/egraph-ground-rewrite/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2023},
+  month   = {May}
+} 
+
+@misc{groundegraph2024,
+  title   = {EGraphs as Ground Completion Talk and EGRAPHS 2024 notes},
+  url     = {https://www.philipzucker.com/egraph2024_talk_done/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {July}
+} 
+
+@misc{smartconstructor,
+  title   = {Acyclic Egraphs and Smart Constructors},
+  url     = {https://www.philipzucker.com/smart_constructor_aegraph/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {Sep}
+} 
+
+@inproceedings{kontroliefficient,
+  author    = {F\"{a}rber, Michael},
+  title     = {Terms for Efficient Proof Checking and Parsing},
+  year      = {2023},
+  isbn      = {9798400700262},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/3573105.3575686},
+  doi       = {10.1145/3573105.3575686},
+  abstract  = {Proofs automatically generated by interactive or automated theorem provers  
+               are often several orders of magnitude larger than proofs written by hand.  
+               This implies significant challenges for processing such proofs efficiently.  
+               It turns out that the data structures used to encode terms  
+               have a high impact on performance.  
+               This article proposes several term data structures; in particular,  
+               heterogeneous terms for proof checking that distinguish long- and short-lived terms, and  
+               abstract terms for proof parsing.  
+               Both term data structures are implemented in the proof checker Kontroli, enabling it to  
+               parse and check proofs both sequentially and concurrently without overhead.  
+               The evaluation on three datasets exported from interactive theorem provers shows that  
+               the new term data structures significantly improve proof checking performance.},
+  booktitle = {Proceedings of the 12th ACM SIGPLAN International Conference on Certified Programs and Proofs},
+  pages     = {135–147},
+  numpages  = {13},
+  keywords  = {Dedukti, Rust, concurrency, performance, sharing, type checking, verification},
+  location  = {Boston, MA, USA},
+  series    = {CPP 2023}
+}
+
+
+@inproceedings{hashconsing,
+  author    = {Filli\^{a}tre, Jean-Christophe and Conchon, Sylvain},
+  title     = {Type-safe modular hash-consing},
+  year      = {2006},
+  isbn      = {1595934839},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/1159876.1159880},
+  doi       = {10.1145/1159876.1159880},
+  abstract  = {Hash-consing is a technique to share values that are structurally equal. Beyond the obvious advantage of saving memory blocks, hash-consing may also be used to speed up fundamental operations and data structures by several orders of magnitude when sharing is maximal. This paper introduces an ocaml hash-consing library that encapsulates hash-consed terms in an abstract datatype, thus safely ensuring maximal sharing. This library is also parameterized by an equality that allows the user to identify terms according to an arbitrary equivalence relation.},
+  booktitle = {Proceedings of the 2006 Workshop on ML},
+  pages     = {12–19},
+  numpages  = {8},
+  keywords  = {data structures, hash-consing, sharing},
+  location  = {Portland, Oregon, USA},
+  series    = {ML '06}
+}
+ @misc{relationalac,
+  title   = {Relational AC Matching},
+  url     = {https://www.philipzucker.com/relational-ac-matching/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2023},
+  month   = {May}
+} 
+
+ @misc{zhang2022relationalematching,
+  title         = {Relational E-Matching},
+  author        = {Yihong Zhang and Yisu Remy Wang and Max Willsey and Zachary Tatlock},
+  year          = {2022},
+  eprint        = {2108.02290},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.DB},
+  url           = {https://arxiv.org/abs/2108.02290}
+}
+
+
+
+ @misc{ematchground,
+  title   = {E-graphs are Ground Rewrite Systems 2: E-matching},
+  url     = {https://www.philipzucker.com/ground-rewrite-2/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2023},
+  month   = {June}
+} 
+
+
+@incollection{BAADER2001445,
+  title     = {Chapter 8 - Unification Theory},
+  editor    = {Alan Robinson and Andrei Voronkov},
+  booktitle = {Handbook of Automated Reasoning},
+  publisher = {North-Holland},
+  address   = {Amsterdam},
+  pages     = {445-533},
+  year      = {2001},
+  series    = {Handbook of Automated Reasoning},
+  isbn      = {978-0-444-50813-3},
+  doi       = {https://doi.org/10.1016/B978-044450813-3/50010-2},
+  url       = {https://www.sciencedirect.com/science/article/pii/B9780444508133500102},
+  author    = {Franz Baader and Wayne Snyder and Paliath Narendran and Manfred Schmidt-Schauss and Klaus Schulz}
+}
+
+@misc{acegraph,
+  title   = {Towards an AC Egraph: Groebner, Graver and Ground Multiset Rewriting},
+  url     = {https://www.philipzucker.com/multiset_rw/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {Oct}
+} 
+
+@misc{coegraph,
+  title   = {Co-Egraphs: Streams, Unification, PEGs, Rational Lambdas},
+  url     = {https://www.philipzucker.com/coegraph/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {Jul}
+} 
+
+@misc{groupoidunion,
+  title   = {Groupoid Annotated Union Finds},
+  url     = {https://www.philipzucker.com/union-find-groupoid/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2022},
+  month   = {Nov}
+} 
+
+@inbook{Frühwirth_2009,
+  place     = {Cambridge},
+  title     = {Union-find algorithm},
+  booktitle = {Constraint Handling Rules},
+  publisher = {Cambridge University Press},
+  author    = {Frühwirth, Thom},
+  year      = {2009},
+  pages     = {256–280}
+} <div></div>
+
+@inbook{Barrett2018,
+  author    = {Barrett, Clark
+               and Tinelli, Cesare},
+  editor    = {Clarke, Edmund M.
+               and Henzinger, Thomas A.
+               and Veith, Helmut
+               and Bloem, Roderick},
+  title     = {Satisfiability Modulo Theories},
+  booktitle = {Handbook of Model Checking},
+  year      = {2018},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {305--343},
+  abstract  = {Satisfiability Modulo Theories (SMT) refers to the problem of determining whether a first-order formula is satisfiable with respect to some logical theory. Solvers based on SMT are used as back-end engines in model-checking applications such as bounded, interpolation-based, and predicate-abstraction-based model checking. After a brief illustration of these uses, we survey the predominant techniques for solving SMT problems with an emphasis on the lazy approach, in which a propositional satisfiability (SAT) solver is combined with one or more theory solvers. We discuss the architecture of a lazy SMT solver, give examples of theory solvers, show how to combine such solvers modularly, and mention several extensions of the lazy approach. We also briefly describe the eager approach in which the SMT problem is reduced to a SAT problem. Finally, we discuss how the basic framework for determining satisfiability can be extended with additional functionality such as producing models, proofs, unsatisfiable cores, and interpolants.},
+  isbn      = {978-3-319-10575-8},
+  doi       = {10.1007/978-3-319-10575-8_11},
+  url       = {https://doi.org/10.1007/978-3-319-10575-8_11}
+}
+
+@inproceedings{lemerre2024labeled,
+  author    = {Matthieu Lemerre and Dorian Lesbre},
+  title     = {Labeled Union-Find for Constraint Factorization},
+  booktitle = {Proceedings of the 10th ACM SIGPLAN International Workshop on Numerical and Symbolic Abstract Domains (NSAD 2024)},
+  year      = {2024},
+  month     = {October},
+  address   = {Pasadena, United States},
+  note      = {HAL Id: cea-04996700}
+}
+
+
+
+@article{MARCHE1996253,
+  title    = {Normalized Rewriting: an Alternative to Rewriting modulo a Set of Equations},
+  journal  = {Journal of Symbolic Computation},
+  volume   = {21},
+  number   = {3},
+  pages    = {253-288},
+  year     = {1996},
+  issn     = {0747-7171},
+  doi      = {https://doi.org/10.1006/jsco.1996.0011},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0747717196900115},
+  author   = {CLAUDE MARCHÉ},
+  abstract = {In the first part of this paper, we introducenormalized rewriting, a new rewrite relation. It generalizes former notions of rewriting modulo a set of equationsE, dropping some conditions onE. For example,Ecan now be the theory of identity, idempotence, the theory of Abelian groups or the theory of commutative rings. We give a new completion algorithm for normalized rewriting. It contains as an instance the usual AC completion algorithm, but also the well-known Buchberger algorithm for computing Gröbner bases of polynomial ideals. In the second part, we investigate the particular case of completion of ground equations. In this case we prove by a uniform method that completion moduloEterminates, for some interesting theoriesE. As a consequence, we obtain the decidability of the word problem for some classes of equational theories, including the AC-ground case (a result known since 1991), the ACUI-ground case (a new result to our knowledge), and the cases of ground equations modulo the theory of Abelian groups and commutative rings, which is already known when the signature contains only constants, but is new otherwise. Finally, we give implementation results which show the efficiency of normalized completion with respect to completion modulo AC.}
+}
+
+@article{conchon12lmcs,
+  author                   = {Sylvain Conchon and \'Evelyne Contejean and Mohamed Iguernelala},
+  title                    = {Canonized Rewriting and Ground {AC} Completion Modulo {Shostak} Theories : Design and Implementation},
+  journal                  = {Logical Methods in Computer Science},
+  year                     = {2012},
+  month                    = sep,
+  pages                    = {1--29},
+  volume                   = 8,
+  number                   = 3,
+  hal                      = {http://hal.inria.fr/hal-00798082},
+  url                      = {http://www.lmcs-online.org/ojs/viewarticle.php?id=1037&layout=abstract&iid=40},
+  topics                   = {team},
+  type_publi               = {irevcomlec},
+  x-equipes                = {demons PROVAL},
+  x-type                   = {article},
+  x-support                = {revue},
+  x-international-audience = {yes},
+  x-editorial-board        = {yes},
+  x-cle-support            = {LMCS},
+  doi                      = {10.2168/LMCS-8(3:16)2012},
+  note                     = {Selected Papers of the Conference \emph{Tools and Algorithms for the Construction and Analysis of Systems} (TACAS 2011), Saarbr{\"u}cken, Germany, 2011}
+}
+
+ @misc{extz3graph,
+  title   = {An External Z3 Egraph for Egraphs Modulo Theories},
+  url     = {https://www.philipzucker.com/ext_z3_egraph/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {Jul}
+} 
+
+  @misc{hashingmodtheories,
+  title   = {Hashing Modulo Theories},
+  url     = {https://www.philipzucker.com/hashing-modulo/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {May}
+} 
+
+   @misc{bottomup,
+  title   = {Bottom Up Egraph Ematching Plays Nicer with Theories (AC, etc)},
+  url     = {https://www.philipzucker.com/bottom_up/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {March}
+} 
+
+@misc{maziarz2021hashingmoduloalphaequivalence,
+  title         = {Hashing Modulo Alpha-Equivalence},
+  author        = {Krzysztof Maziarz and Tom Ellis and Alan Lawrence and Andrew Fitzgibbon and Simon Peyton Jones},
+  year          = {2021},
+  eprint        = {2105.02856},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.PL},
+  url           = {https://arxiv.org/abs/2105.02856}
+}
+
+  @misc{remybirkhoff,
+  title   = {Completeness of Equational Proofs with Equality Saturation},
+  url     = {https://remy.wang/blog/birkhoff.html},
+  journal = {Remy Wang's Blog},
+  author  = {Remy Wang},
+  year    = {2025},
+  month   = {March}
+} 
+
+ @inproceedings{GeMoura2009,
+  author    = {Ge, Yeting
+               and de Moura, Leonardo},
+  editor    = {Bouajjani, Ahmed
+               and Maler, Oded},
+  title     = {Complete Instantiation for Quantified Formulas in Satisfiabiliby Modulo Theories},
+  booktitle = {Computer Aided Verification},
+  year      = {2009},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {306--320},
+  abstract  = {Quantifier reasoning in Satisfiability Modulo Theories (SMT) is a long-standing challenge. The practical method employed in modern SMT solvers is to instantiate quantified formulas based on heuristics, which is not refutationally complete even for pure first-order logic. We present several decidable fragments of first order logic modulo theories. We show how to construct models for satisfiable formulas in these fragments. For richer undecidable fragments, we discuss conditions under which our procedure is refutationally complete. We also describe useful heuristics based on model checking for prioritizing or avoiding instantiations.},
+  isbn      = {978-3-642-02658-4}
+}
+
+
+  @misc{souffleegraph,
+  title   = {A Questionable Idea: Hacking findParent into Souffle with User Defined Functors},
+  url     = {https://www.philipzucker.com/souffle-functor-hack/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2022},
+  month   = {March}
+} 
+
+ @article{JAFFAR1994503,
+  title    = {Constraint logic programming: a survey},
+  journal  = {The Journal of Logic Programming},
+  volume   = {19-20},
+  pages    = {503-581},
+  year     = {1994},
+  note     = {Special Issue: Ten Years of Logic Programming},
+  issn     = {0743-1066},
+  doi      = {https://doi.org/10.1016/0743-1066(94)90033-7},
+  url      = {https://www.sciencedirect.com/science/article/pii/0743106694900337},
+  author   = {Joxan Jaffar and Michael J. Maher},
+  abstract = {Constraint Logic Programming (CLP) is a merger of two declarative paradigms: constraint solving and logic programming. Although a relatively new field, CLP has progressed in several quite different directions. In particular, the early fundamental concepts have been adapted to better serve in different areas of applications. In this survey of CLP, a primary goal is to give a systematic description of the major trends in terms of common fundamental concepts. The three main parts cover the theory, implementation issues, and programming for applications.}
+}
+
+@inproceedings{constrainedrewrite,
+  author    = {Kop, Cynthia
+               and Nishida, Naoki},
+  editor    = {Fontaine, Pascal
+               and Ringeissen, Christophe
+               and Schmidt, Renate A.},
+  title     = {Term Rewriting with Logical Constraints},
+  booktitle = {Frontiers of Combining Systems},
+  year      = {2013},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {343--358},
+  abstract  = {In recent works on program analysis, transformations of various programming languages to term rewriting are used. In this setting, constraints appear naturally. Several definitions which combine rewriting with logical constraints, or with separate rules for integer functions, have been proposed. This paper seeks to unify and generalise these proposals.},
+  isbn      = {978-3-642-40885-4}
+}
+
+@book{sturmfels1996grobner,
+  title     = {Grobner Bases and Convex Polytopes},
+  author    = {Sturmfels, B.},
+  isbn      = {9780821804872},
+  lccn      = {95045780},
+  series    = {Memoirs of the American Mathematical Society},
+  url       = {https://books.google.com/books?id=K-bxBwAAQBAJ},
+  year      = {1996},
+  publisher = {American Mathematical Society}
+}
+
+@inbook{Cox2015,
+  author    = {Cox, David A.
+               and Little, John
+               and O'Shea, Donal},
+  title     = {Gr{\"o}bner Bases},
+  booktitle = {Ideals, Varieties, and Algorithms: An Introduction to Computational Algebraic Geometry and Commutative Algebra},
+  year      = {2015},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {49--119},
+  abstract  = {In Chapter 1, we have seen how the algebra of the polynomial rings k[x1,{\thinspace}{\ldots},{\thinspace}xn] and the geometry of affine algebraic varieties are linked. In this chapter, we will study the method of Gr{\"o}bner bases, which will allow us to solve problems about polynomial ideals in an algorithmic or computational fashion. The method of Gr{\"o}bner bases is also used in several powerful computer algebra systems to study specific polynomial ideals that arise in applications. In Chapter 1, we posed many problems concerning the algebra of polynomial ideals and the geometry of affine varieties. In this chapter and the next, we will focus on four of these problems.},
+  isbn      = {978-3-319-16721-3},
+  doi       = {10.1007/978-3-319-16721-3_2},
+  url       = {https://doi.org/10.1007/978-3-319-16721-3_2}
+}
+
+

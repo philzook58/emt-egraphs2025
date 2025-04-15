@@ -1,0 +1,35 @@
+\documentclass[sigconf,authordraft]{acmart}
+\usepackage{listings}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Omelets Need Onions \\ \large E-graphs Modulo Theories via Bottom Up E-Matching}
+% Bottom Up E-matching for E-graphs Modulo Theories
+% EGraph Modulo THoeires and Bottom Up E-Matching
+% E-Graphs Modulo Theories by Bottom Up E-Matching
+
+% bottom up is really a key point in everything.
+
+\author{Philip Zucker}
+\email{philzuckerblog@gmail.com}
+
+
+\begin{abstract}
+    E-graphs\cite{eggpaper} are a data structure for generic equational reasoning and optimization over ground terms. One of
+     the benefits of e-graph rewriting is that it can declaratively handle useful but difficult to orient identities like 
+     associativity and commutativity (AC) in a generic way. However, using these generic mechanisms
+      is more computationally expensive than bespoke routines. There exist specialized efficient
+       algorithms and data structures for terms containing sets, multisets, linear expressions, polynomials, and binders.
+        A natural question arises: How can one combine the generic capabilities of e-graph rewriting with these specialized theories?
+        This talk discusses a pragmatic approach to this problem using two key ideas: bottom up e-matching and semantic e-ids.
+
+% One feels there must be bespoke reoutines that would be better suited for common problems.
+% Some theories feel nearly structural.
+
+\end{abstract}
+
+
+\keywords{e-graphs, e-matching, term rewriting, equality saturation, SMT, union find, completion, theory solvers, Gr\"{o}bner basis}
+
+
+\maketitle

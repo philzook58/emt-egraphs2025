@@ -1,0 +1,138 @@
+
+
+% maybe not
+\section{Introduction}
+    \subsection{A No Go Counterexample}
+    \subsection{A Go Go Example}
+
+\subsection{Terms Modulo Theories}
+    \subsection{What patterns are possible?}
+    hash consing
+
+\subsection {Bottom Up E-Matching Plays Nicer With Theories}
+
+\subsection{EGraphs Aren't Just Equations}  / What are E-Graphs?
+
+\subsection{EGraphs Are Partial Models}
+
+\section {Generalized Union Finds and Structured / Semantic EIds}
+
+Conclusion 
+    \section{Extract, Simplify, and Insert}
+
+    \section{Constraints via sidecar SMT}
+
+    \subsection{Completeness: Should One Care?}
+
+    \subsection{Rewriting Modulo Theories}
+
+    \section{Containers and Generalized ENodes}
+
+    \subsection{Hash Consing Modulo Theories} %just make part of terms
+
+
+
+
+    \subsection{Equality and Canonizers}
+
+
+    I'm starting to make the talk about work I haven't done, the theory interface.
+
+
+Look at blog posts.
+Cut.
+
+
+
+
+
+
+
+
+
+\subsection{Equality and Canonizers}
+
+
+
+
+\begin{itemize}
+
+\item $eq : T \rightarrow T \rightarrow Bool$
+\item $canon : T -\rightarrow C$ $eq: C \rightarrow C \rightarrow Bool$
+
+\end{itemize}
+
+
+Computational representations of sets may be push or pull. A characteristic function is a representation of a set which can only tell you if an element is in the set or not. To enumerate the set, you must filter
+
+These two interfaces make their appearance in SMT under the heading of Nelson-Oppen combination and Shostak Combination.
+
+% interfaces needed by theories. 
+% module Theory where
+% type v
+% eq : V -> V -> Bool
+% canon : C -> C
+% union : C -> C -> C
+% hash : C -> int
+% compare : C -> C -> int
+% fresh : () -> C
+
+% otehr operations
+% add
+% prod
+% string * (params -> c list -> c) list
+
+
+% SMT solvers _are_ theories
+
+
+
+
+
+
+
+
+\subsection{E-graphs Are Partial Models}
+A model $\mathcal{M}$ of set of formulas in equational logic consists of a set of values $\mathcal{V}$ and for every function symbol, a set theoretic function $\lBrack f \rBrack : \mathcal{V}^n \rightarrow \mathcal{V}$ on those values such that the formulas hold in the model.
+
+Some equational theories have finite models can be represented on a physical computer. $V$ maybe be represented as a finite set data structure with identifiers and each function symbol will have a table associated with it.
+
+This can also be seen by using an SMT solver over an uninterpreted sort.
+
+There are two ways in which the manner in which the E-graph community uses E-graphs that do not fit into this perspective.
+E-graphs do not represent an arbitrary model, they represent a justified or minimal model of the equations, one with as few identifications as possible.
+E-graphs do not represent total functions. They represent partial functions. 
+
+Uninterpreted models use sets of values that have no properties other than the ability to be compared for equality. Any ability to compare the actual integers used is considered to be a piercing of the abstraction.
+
+One can work with interpreted models where the values come from a semantic domain that has structure.
+
+partial logic $\downarrow t$
+
+\subsubsection{E-graphs Aren't Just Equations}
+
+% Maybe fuse this an next sectoin.
+
+One story on what an E-graph is that it is a compressed representation of a set of ground term equations. This is not quite the whole story. 
+
+In compression, we might consider the set of equations $\{foo(a) = b, c = c\}$ to be the same as the set $\{foo(a) = b\}$ since the equation $c = c$ has no interesting content. Nevertheless, if we assert these two sets into the e-graph, we get different e-graphs, one which has the an e-class and e-node for $c$ and one which does not.
+
+However, the set of equations $\{foo(a) = a\}$ and $\{foo(a) = b, foo(foo(a)) = a\}$ will result in the same e-graph.  
+
+A better story is that an e-graph is compressed representation of a set of ground term equations \textit{and} a compressed ground term bank. 
+
+The ability to seed the e-graph in this way can make a big difference in term of equational search via equality saturation. Good magic terms.
+
+
+
+
+% One can take the viewpoint that those two sets of equations should not be considered the same,
+
+% Using reflexive equations to represent a term being in the e-graph is one method, but there is elegance in considering the e-graph to really represent both a set of equations and a set of terms. The set of terms is a termbank from which one can guess instantiations of patterns. The set of terms is grown during equality saturation in a goal driven way.
+% While one could generate all terms starting from the constants and applying al function symbols, it instead makes sense to start from a term of interest and generate and it's subterms. Equational reasoning over these subterms may unlock new optimizations via congruence.
+% Equational reasoning over terms that are not subterms of any term in the same equivalence class as the goal term cannot ever be of interest.
+
+% Naive equality saturation on it's own cannot explore the space of all subterms of terms in the equivalence class of the goal term.
+
+% the e-graph is equations and a term bank
+
