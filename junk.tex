@@ -136,3 +136,187 @@ The ability to seed the e-graph in this way can make a big difference in term of
 
 % the e-graph is equations and a term bank
 
+
+
+\appendix
+
+\section{Appendix 1}
+
+% \section{Containers and Generalized ENodes}
+
+% E-graphs systems are the interplay of two entities, enodes and eclasses. A natural approach to generalize e-graphs is to consider generalizing one or both.
+
+% Egg extended the base E-graph with attached lattice values, Egglog has extended with the notion of primtitive and containers.
+
+
+% Many of the design ideas and issues appear also in the context of pure terms or hash conses. Enodes are basically the same thing a nodes of a term. Eids are to same thing as the unique identifiers of a hashcons, just with extra equality capability.
+
+% Enodes are the data of a model corresponding to function symbols and the eids are the values of the model. The standard simple eid is an integer of some kind, but the fact they are integers are irrelevant. They are uninterpreted entities whose only property is that they can be compared for equality.
+
+% Off by One design problems. Edges and vertices. Material flux is most naturally associated with the faces of cells, not the volumes or vertices. One can mush the different pieces around, wherever there is an enode there is an eclass nearby. A goal is to get the right conceptual picture and the hopefully things will lock into place. This is conceptual advance, and kind of is the only way to advance from our ancestors.
+
+% The most standard notion of enodes is a function symbol combined with a fixed number of ordered children.
+
+% Enodes can be generalize such that their children eids are held in different data structures.
+% If enodes hold their children in vectors this supports Associativity to some degree, multisets support AC, and sets support ACI.
+
+% In the egg rust library, a generic notion of enode is enabled by the use of the Language trait. This trait requires the constructors of possible enodes to be distinguishable, teh children enumerable. The capaibiulities are necessary to canpnized and ematch through the enode.
+
+% The \lstinline{fn children(&self) -> &[Id];} This can be generalized into \lstinline{fn children(&self) -> Vec<Vec<Id>>;}
+
+% Some e-graph systems support primitive types such as 64 bit integers or concrete strings. Another primitive type that can be supported is Vectors
+
+
+It is known that \cite{MARCHE1996253} that ground completion modulo theories is undecidable for
+
+An e-graph rewriting system may want to mix and match these possibilities. The most straightforward design is to associate a theory with each sort. 
+The sort object is responsible for canonization and maintaining to normalizer data structures.
+ It is not always the case that it makes sense to have one privileged notion of AC for example per sort.
+
+
+$<e_1, e_2, ... | R_E>$ .
+and successful completion would give a decision procedure for . This is an important counterexample as string rewriting can be viewed as ground equations + associativity. Because of this, 
+a fully satisfying solution to an e-graph (which represent ground equations) with baked in associativity is unlikely to be possible. 
+Sequence e-graphs. This may be useful for modelling programs which often need sequencing of side effectful instructions like in Denali. 
+Two related theories are non-commutative rings and finitely presented groups, both of have a flavor of sequences and are not decidable. 
+\item The author is uncertain if it is in the literature if the word problem of differential rings is undecidable, but it probably is. 
+This suggests the possibility however of a method to bake in some notions of calculus and differentiation into the e-graph.
+
+ If we include variables symbols, we get full Knuth Bendix Completion.
+ Unorientable derived equations can be lifted to be equality saturation rules. This is related to ordered completion/rewriting.
+
+
+ The term ordering used to orient and complete the original system can also be determined ahead of time. Strongly term decreasing simplification rules may prefer suing Knuth Bendix orderings which orient roughly speaking by term size. Knuth Bendix completion is such a powerful method that it isn't clear there is an advantage to having the outer e-graph layer.
+% Likewise Knuth bendix completion 
+
+\subsection{Extract, Simplify, and Insert}
+
+While the e-class indirection makes theory normalization inside the e-graph confusing, it is known how one would normalize an AST-like term. 
+Associativity and commutativity can be dealt with by flattening and sorting an AST into a vector and there are plethora of techniques for beta normalization of terms.
+
+A simple idea is to replace equality saturation rules encoding this behavior with an extraction, simplification, and reinsertion of terms. This allows many directed normalizing steps to be taken at once without bloating the e-graph with administrative junk.
+
+A downside of this technique is that the intermediate states may not really be junk. For AC, the intermediate states may bubble together or collect up terms in such a way as to unlock new optimizations.
+
+Koehler et al describe an "extraction-based substitution" \cite{koehler2022sketchguidedequalitysaturationscaling} method for dealing with substitution of lambda terms. This method works for all rewrite theories for which one wants to avoid junk, not just lambda terms.
+
+\subsection{Constraints via sidecar SMT}
+
+A prominent useful class of automated reasoning solvers are Satisfiability Modulo Theories (SMT) solvers \cite{Barrett2018}. A SAT solver and an e-graph are communication fabric by which theory specific solvers talk to each other. The SAT solver leads to SMT having a backtracking flavor whereas e-graph rewriting has a saturation flavor. A reasonable approach to E-graphs modulo theories can be found in the motivating schematic equation $EMT = SMT - SAT$. If one only asserts unit clauses to an SMT solver then the SAT solver is not needed.
+
+The core technology of SMT solvers is largely the same, but optimized for different use patterns and the first order model semantics is not the desired one for the purposes of optimization.
+
+Upon satisfiability, SMT returns an arbitrary model. Equality saturation specifically wants a justified or minimal model, one in which every equality is forced by the constraints. As an example, given the problem `a = b` `c = d` an SMT solver may return a universe containing only a single element `{a : v!0, b : v!0, c: v!0, d ; d!0}, identifying everything with everything.
+
+The e-matching d the e-matching algorithms are syntactic and furthermore CVC5 and Z3 do not necessarily make theory specific operators like integer addition available to the e-matcher.
+Alt-ergo is an exception.
+
+Nevertheless, a technique for EMT is to maintain an equality saturating e-graph and to mirror all the equalities and theory specific facts into a side car SMT solver. The utility of this is to enable SMT queries, specifically in guards of equality saturation rules. Guards are distinguished from multipatterns in that no new pattern variables may be bound in them.
+
+
+SMT solvers supply a black box for checking equality of two terms modulo the asserted axioms and theories. If one asserts $t \ne s$ and receives an unsat result, then the axioms justify $t = s$ in the minimal model. Given a term bank and bottom-up e-matching, this is sufficient to pattern match, albeit while requiring at worst case $T$ SMT queries. With the addition of using unsat cores, this can be made more query efficient by querying many equalities at once.
+
+\ref{extz3graph} 
+
+% \begin{lstlisting}[language=Lisp]
+% (push)
+% (assert (not guard))
+% (check-sat)
+% (pop)
+% \end{lstlisting}
+
+This technique has analogs in the form of Constraint Logic Programming \cite{JAFFAR1994503} or Constrained Horn Clauses, or constrained rewriting  \cite{constrainedrewrite}.
+
+
+\section{Containers and Generalized ENodes}
+
+An alternative to consider from structured e-ids is generalized e-nodes. The basic idea is to merge the concepts of e-node and container primitive.
+
+A standard e-node is a function symbol and a fixed number of ordered children.
+
+Similar to the datatype for terms modulo theories, it is natural to consider an e-node that holds it's children in other data structures like sets, multisets, vectors or polynomials. This is a every so slightly shifted design from putting those structures in the e-ids. During rebuild, the children containers of e-nodes need to be rebuilt. Bottom-up e-matching still works and for some containers top-down e-matching can still work if the interface for enumerating children is extended to be able to return a list.
+
+\section{Just Use Terms Modulo Theories}
+
+Terms are much simpler than e-graphs. While greedy destructive rewriting may miss oppurtunities, one can instead not destroy old terms but keep them around in a term bank for future ocnsideration. This is effectively the same as e-graph techniques without the compaction and sharing (which was the cause of much trouble anyhow). %Brute force equational search is not entirely unreasonable method
+
+Ordered Rewriting can also handle difficult to orient equations in a different way. Ordered rewriting maintains equations like AC and only uses them at rewrite time if they reduce the term according to a term ordering. This guarantees termination and can be used for example as a framework to sort the children of a commutative node. E-graph rewriting techniques should have a superset of the proving or optimization power of ordered rewriting.
+
+Stochastic equational search is another method with a lot to reccommend it. The direction of application of equational rules can be picked probablistically. Some rewrite rules are irreversible, dropping a pattern matched subterm. With the addition of a conservative term bank, even these irreversible rewrite rules can in principle be reversed. If one is going to use a stochastic profile guide extraction method anyway, there is not a super strong reason to maintain an entire e-graph to get a global extraction.
+
+%For better and worse the stochastic nature has a lot of heuristic tuning parameters.
+
+
+
+% todo fix this up.
+
+\subsection{A No Go Counterexample}
+
+String rewriting is finding pattern strings and replacing them. It is fairly straightforward to encode a turing machine tape and head into a string \cite{traatbook}.
+The transitions of the head can be encoded as string rewrite rules. Because of this, string rewriting is Turing complete and we can't expect all
+equational theories generated by string equations to be decidable.
+
+%The typical definition of string rewriting does not include a notion of variable.
+
+String rewriting can be shallowly embedded into term rewriting in multiple ways. One method uses a binary concatenation  operation that is associative $(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$. The remaining equations of a particular string rewrite system can be represented as ground term equations. If we take the view that an E-graph represents decision procedure for ground term equations then even before discussions of e-matching, an e-graph with a baked in notion of associativity cannot exist.
+
+No No-Go theorem is ever actually a No-Go. It just becomes clear that you need to side step the preconditions or framing of the theorem to achieve what you want. Undecidability of the halting problem does disprove the existence of program analysis and the failure of single layer neural networks to encode xor does not say much about the ability of more complex ones.
+
+It is known that \cite{MARCHE1996253} that ground completion modulo theories is undecidable for
+
+\begin{itemize}
+\item A
+\item Groups
+\item ACD
+\end{itemize}
+
+\subsection{A Go Go Example}
+
+The meaning of the notation of conventional mathematics is often both contextual and ambiguous. Like English, this is not necessarily an impediment to effective communication between those with trained eyes. The polynomial expression $x^2 + 2x + 1 = 0$ may be making a statement about a particular point $x$, or about a surface, or describing an algebraic fact about elements of any element of some ring $x$. The former is more analogous to a ground equation in therm term rewriting sense and the latter is more like a non-ground universally quantified equation.
+
+A system of polynomial equations can be converted into one that is equivalent but normalizing under the operation of multivariate polynomial division. This sets of polynomials is called a Gr\"{o}bner basis \cite{Cox2015}. The algorithm to do so is Buchberger's Algorithm.
+A Gr\"{o}bner basis is the direct analog of a normalizing rewrite system and Buchberger's algorithm is the direct analog of Knuth-Bendix completion.
+Like ground Knuth Bendix completion, Buchberger's algorithm is guaranteed to terminate. Unlike ground knuth bendix completion, the complexity is unlikely to be polynomial.
+
+While it is annoying to make the connection truly rigorous, it is clear that Buchberger's algorithm is performing ground completion modulo a baked in theory of rings.
+
+Two special subcases of Buchberger's algorithm occur for linear polynomials and for polynomials consisting of only two monomials.
+The first is a perspective on Gaussian elimination. The latter can be seen as ground multiset rewriting or as integer lattice rewriting. It has connections to the theory of integer programming \cite{sturmfels1996grobner}
+
+It is known that ground completion modulo theories is decidable for the theories of \cite{MARCHE1996253}
+
+\begin{itemize}
+\item AC
+\item ACU
+\item ACI
+\item ACN
+\item ACUI
+\item ACUN
+\item Boolean Rings
+\item Commutative Rings
+\item Finite Fields
+\item Abelian Groups
+\end{itemize}
+
+
+\subsection{Completeness: Should One Care?}
+
+Naive equality saturation is not a complete equational theorem proving method because it is defeated by equations that have different variables on each side. \cite{remybirkhoff}
+
+Consider the theory $\forall X, foo(X) = a$  $\forall Y, foo(Y) = b$. and the goal $a =^? b$. 
+In naive equality saturation, these two equations can only be used as rewrite rules from left to right. Inserting the goal terms $a$ and $b$ into the e-graph's termbank will not be succiient to trigger the rules.
+
+Either using unification in the form of superposition of unordered ocmpletion, or hvaing an enumeration method of ground terms is needed. \cite{GeMoura2009}
+
+The term banks of the EMT methods do not reduce the total number of e-classes if one wants to find the same number of solutions as naive equality saturation. The number of enodes is reduced.
+
+In AC, if one genuinely wants to be able to search over all subsets of a multiset, 
+
+
+It is the author's belief that with a suffiicient term enumeratiom mechanism, the EMT methods above are also complete. Even the undecidable theories remain goal-complete if one allows for fair scheduling. These are complex claims that it is outside the scope of this paper to actually prove.
+
+The main interest in understand the completeness of an EMT method relative to the naive algorithm not because the naive algorithm has good theoretical properties. it is that naive equality saturation is simple to explain, pragmatic, and efficient. Alternate EMT methods may have greater or less reasoning power than the naive algorithm on different problems. If the method is equally simple and more efficient that is fine.
+
+Completeness is useful if you want absolute guanrantees you have the minimum possible term or that if the saturation saturates there is no solution.
+
+Soundness however is table stakes.

@@ -396,13 +396,53 @@
 }
 
 @misc{acegraph,
-  title   = {Towards an AC Egraph: Groebner, Graver and Ground Multiset Rewriting},
+  title   = {Towards an AC Egraph: Groebner, and Ground Multiset Rewriting},
   url     = {https://www.philipzucker.com/multiset_rw/},
   journal = {Hey There Buddo!},
   author  = {Zucker, Philip},
   year    = {2024},
   month   = {Oct}
 } 
+
+@misc{grobneregraph,
+  title   = {Gauss and Groebner Egraphs: Intrinsic Linear and Polynomial Equations},
+  url     = {https://www.philipzucker.com/linear_grobner_egraph/},
+  journal = {Hey There Buddo!},
+  author  = {Zucker, Philip},
+  year    = {2024},
+  month   = {July}
+} 
+
+
+
+@inproceedings{shostaklight,
+  author    = {Ganzinger, Harald},
+  title     = {Shostak Light},
+  year      = {2002},
+  isbn      = {3540439315},
+  publisher = {Springer-Verlag},
+  address   = {Berlin, Heidelberg},
+  booktitle = {Proceedings of the 18th International Conference on Automated Deduction},
+  pages     = {332–346},
+  numpages  = {15},
+  series    = {CADE-18}
+}
+@inbook{Cox2015,
+  author    = {Cox, David A.
+               and Little, John
+               and O'Shea, Donal},
+  title     = {Gr{\"o}bner Bases},
+  booktitle = {Ideals, Varieties, and Algorithms: An Introduction to Computational Algebraic Geometry and Commutative Algebra},
+  year      = {2015},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {49--119},
+  abstract  = {In Chapter 1, we have seen how the algebra of the polynomial rings k[x1,{\thinspace}{\ldots},{\thinspace}xn] and the geometry of affine algebraic varieties are linked. In this chapter, we will study the method of Gr{\"o}bner bases, which will allow us to solve problems about polynomial ideals in an algorithmic or computational fashion. The method of Gr{\"o}bner bases is also used in several powerful computer algebra systems to study specific polynomial ideals that arise in applications. In Chapter 1, we posed many problems concerning the algebra of polynomial ideals and the geometry of affine varieties. In this chapter and the next, we will focus on four of these problems.},
+  isbn      = {978-3-319-16721-3},
+  doi       = {10.1007/978-3-319-16721-3_2},
+  url       = {https://doi.org/10.1007/978-3-319-16721-3_2}
+}
+
 
 @misc{coegraph,
   title   = {Co-Egraphs: Streams, Unification, PEGs, Rational Lambdas},
@@ -411,6 +451,12 @@
   author  = {Zucker, Philip},
   year    = {2024},
   month   = {Jul}
+} 
+
+@misc{grobnerpap,
+  title  = {Gröbner bases and their applications},
+  url    = {https://mattpap.github.io/masters-thesis/html/src/groebner.html},
+  author = {Mateusz Paprocki}
 } 
 
 @misc{groupoidunion,
@@ -461,6 +507,12 @@
   note      = {HAL Id: cea-04996700}
 }
 
+@inproceedings{slotted,
+  author    = {Rudi Schneider and Marcus Rossel and Amir Shaikhha and Andres Goens and Thomas Koehler and Michel Steuwer},
+  title     = {Slotted E-Graphs},
+  booktitle = {To Appear at PLDI 2025}
+}
+
 
 
 @article{MARCHE1996253,
@@ -500,7 +552,9 @@
   note                     = {Selected Papers of the Conference \emph{Tools and Algorithms for the Construction and Analysis of Systems} (TACAS 2011), Saarbr{\"u}cken, Germany, 2011}
 }
 
- @misc{extz3graph,
+
+
+ @misc{extz3egraph,
   title   = {An External Z3 Egraph for Egraphs Modulo Theories},
   url     = {https://www.philipzucker.com/ext_z3_egraph/},
   journal = {Hey There Buddo!},
@@ -545,6 +599,21 @@
   year    = {2025},
   month   = {March}
 } 
+
+@inproceedings{z3ematching,
+  author    = {de Moura, Leonardo
+               and Bj{\o}rner, Nikolaj},
+  editor    = {Pfenning, Frank},
+  title     = {Efficient E-Matching for SMT Solvers},
+  booktitle = {Automated Deduction -- CADE-21},
+  year      = {2007},
+  publisher = {Springer Berlin Heidelberg},
+  address   = {Berlin, Heidelberg},
+  pages     = {183--198},
+  abstract  = {Satisfiability Modulo Theories (SMT) solvers have proven highly scalable, efficient and suitable for integrating theory reasoning. However, for numerous applications from program analysis and verification, the ground fragment is insufficient, as proof obligations often include quantifiers. A well known approach for quantifier reasoning uses a matching algorithm that works against an E-graph to instantiate quantified variables. This paper introduces algorithms that identify matches on E-graphs incrementally and efficiently. In particular, we introduce an index that works on E-graphs, called E-matching code trees that combine features of substitution and code trees, used in saturation based theorem provers. E-matching code trees allow performing matching against several patterns simultaneously. The code trees are combined with an additional index, called the inverted path index, which filters E-graph terms that may potentially match patterns when the E-graph is updated. Experimental results show substantial performance improvements over existing state-of-the-art SMT solvers.},
+  isbn      = {978-3-540-73595-3}
+}
+
 
  @inproceedings{GeMoura2009,
   author    = {Ge, Yeting
@@ -610,22 +679,6 @@
   url       = {https://books.google.com/books?id=K-bxBwAAQBAJ},
   year      = {1996},
   publisher = {American Mathematical Society}
-}
-
-@inbook{Cox2015,
-  author    = {Cox, David A.
-               and Little, John
-               and O'Shea, Donal},
-  title     = {Gr{\"o}bner Bases},
-  booktitle = {Ideals, Varieties, and Algorithms: An Introduction to Computational Algebraic Geometry and Commutative Algebra},
-  year      = {2015},
-  publisher = {Springer International Publishing},
-  address   = {Cham},
-  pages     = {49--119},
-  abstract  = {In Chapter 1, we have seen how the algebra of the polynomial rings k[x1,{\thinspace}{\ldots},{\thinspace}xn] and the geometry of affine algebraic varieties are linked. In this chapter, we will study the method of Gr{\"o}bner bases, which will allow us to solve problems about polynomial ideals in an algorithmic or computational fashion. The method of Gr{\"o}bner bases is also used in several powerful computer algebra systems to study specific polynomial ideals that arise in applications. In Chapter 1, we posed many problems concerning the algebra of polynomial ideals and the geometry of affine varieties. In this chapter and the next, we will focus on four of these problems.},
-  isbn      = {978-3-319-16721-3},
-  doi       = {10.1007/978-3-319-16721-3_2},
-  url       = {https://doi.org/10.1007/978-3-319-16721-3_2}
 }
 
 
