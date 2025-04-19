@@ -3,9 +3,9 @@
 \usepackage{amsmath}
 \begin{document}
 
-\title{Omelets Need Onions \\ \large E-graphs Modulo Theories via Bottom Up E-Matching}
+\title{Omelets Need Onions \\ \large E-graphs Modulo Theories via Bottom-up E-Matching}
 % Bottom Up E-matching for E-graphs Modulo Theories
-% EGraph Modulo THoeires and Bottom Up E-Matching
+% EGraph Modulo Theories and Bottom Up E-Matching
 % E-Graphs Modulo Theories by Bottom Up E-Matching
 
 % bottom-up is really a key point in everything.
@@ -20,10 +20,10 @@
      associativity and commutativity (AC) in a generic way. However, using these generic mechanisms
       is more computationally expensive than using bespoke routines on terms containing sets, multi-sets, linear expressions, polynomials, and binders.
         A natural question arises: How can one combine the generic capabilities of e-graph rewriting with these specialized theories?
-        This talk discusses a pragmatic approach to this e-graphs modulo theories (EMT) question using two key ideas: bottom-up e-matching and semantic e-ids.
+        This paper discusses a pragmatic approach to this e-graphs modulo theories (EMT) question using two key ideas: bottom-up e-matching and semantic e-ids.
 % . There exist specialized efficient algorithms and data structures
 
-% One feels there must be bespoke reoutines that would be better suited for common problems.
+% One feels there must be bespoke routines that would be better suited for common problems.
 % Some theories feel nearly structural.
 
 \end{abstract}
@@ -239,7 +239,7 @@ A different but related problem is to instead be given a term bank $T$ which is 
 
 It is important to note that while an e-graph can be described as a compressed representation of a set of ground equations $E$, really it is more like the pair of this set of equations and a termbank $(E, T)$. For example, we may consider the set of equations $\{foo(a) = b, c = c\}$ to be the same as the equation set $\{foo(a) = b\}$ since the equation $c = c$ has no interesting equational content. Nevertheless, if we assert these two sets into the e-graph, we get different e-graphs, one which has the an e-class and e-node for $c$ in its termbank $T$ and one which does not. The ability to seed the e-graph termbank with useful terms is crucial for equality saturation.
 
-Naive equality saturation has a built in implicit methodology for expanding the termbank. At every stage, it adds to the termbank all subterms that are equal to something already in the termbank by a rewrite rule. This is a useful heuristic for adding terms that may be useful via congurence closure, but it is incomplete for equational search  \cite{remybirkhoff}. Other rules to expand the termbank need to be considered \cite{GeMoura2009}.
+Naive equality saturation has a built in implicit methodology for expanding the termbank. At every stage, it adds to the termbank all subterms that are equal to something already in the termbank by a rewrite rule. This is a useful heuristic for adding terms that may be useful via congruence closure, but it is incomplete for equational search  \cite{remybirkhoff}. Other rules to expand the termbank need to be considered \cite{GeMoura2009}.
 
 % % for equational search the name of the game becomes expanding the termbank T in fruitful directions. Equality saturation has a built in implicit methodology for this. It adds to the termbank all subterms that are equal to something already in the termbank by a rewrite rule.
 % Explicitly teasing out 
@@ -570,7 +570,11 @@ Koehler et al describe an "extraction-based substitution" \cite{koehler2022sketc
 
 Another approach is to mirror all e-graph unions and assertions into a side-car SMT solver \cite{extz3egraph}. This enables SMT based guards on rules, for example the theory of linear inequalities. This technique has analogs in the form of Constraint Logic Programming \cite{JAFFAR1994503}, constrained Horn clauses, or constrained rewriting  \cite{constrainedrewrite}.
 
-A third approach that is "off by one" from semantic-eids is to merge the concept of containers and e-nodes. Similiarly as was shown for terms, e-nodes may have a set, multiset, or polynomial of children. Bottom-up e-matching still works, and top-down can somewhat be made to work by extending the signature of \lstinline{fn children(self) -> Vec<Vec<Id>>} to return multiple results.
+A third approach that is "off by one" from semantic-eids is to merge the concept of containers and e-nodes. Similiarly as was shown for terms, e-nodes may have a set, multiset, or polynomial of children. Bottom-up e-matching still works, and top-down can somewhat be made to work by extending the signature of to return multiple results.
+
+\begin{lstlisting}
+fn children(self) -> Vec<Vec<Id>>
+\end{lstlisting}
 
 \section{Related Work}
 
@@ -580,9 +584,11 @@ There have been a number of extensions to rewriting to term rewriting modulo the
 
 String Knuth Bendix systems appear in computational group theory applications. These systems by construction have built in associativity axioms.
 
-Vampire and the E theorem prover are two powerful automated theorem provers with some built in support for AC symbols.
+The Vampire \cite{vampire} and E theorem provers \cite{eprover} are two powerful automated theorem provers with some built in support for AC symbols.
 
 There is a line of work for congruence modulo AC applied in the Alt-Ergo SMT solver \cite{conchon12lmcs}
+
+The Maude system has support for efficient AC rewriting \cite{maudeac}.
 
 %The extreme sharing of the e-graph is both its benefit and its problem. There are other term rewriting methods that can handle difficult to orient rules or baked in ness without going
 
